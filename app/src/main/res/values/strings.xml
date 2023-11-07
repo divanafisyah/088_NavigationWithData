@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">PAMLayout</string>
+    <string name="back_button">Kembali</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="next">Lanjut</string>
+    <string name="cancel">Batal</string>
+    <string name="vanilla">Vanila</string>
+    <string name="taro">Taro</string>
+    <string name="natural">Natural</string>
+    <string name="milk">Milky</string>
+    <string name="Lyche">Lychee</string>
+    <string name="order_summary">Ringkasa Order</string>
+    <string name="send">Send Order to Another App</string>
+    <string name="quantity">Jumlah</string>
+    <string name="Flavor">Rasa</string>
+    <string name="subtotal_price">Subtotal: Rp %s</string>
+    <string name="total_price">Total Ne</string>
+</resources>
