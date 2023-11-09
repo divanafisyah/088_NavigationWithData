@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -30,8 +31,10 @@ fun HalamanHome(
     onNextButtonClicked: () -> Unit)
 {
     val image = painterResource(id = R.drawable.kelpshake)
-    Column (modifier = Modifier,
-            verticalArrangement = Arrangement.SpaceBetween) {
+    Column (
+        modifier = Modifier,
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
         OutlinedCard(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface,
@@ -70,7 +73,8 @@ fun HalamanHome(
                 .fillMaxWidth()
                 .padding(dimensionResource(R.dimen.padding_medium))
                 .weight(
-                    1f, false),
+                    1f, false
+                ),
                 horizontalArrangement = Arrangement.spacedBy (dimensionResource(R.dimen.padding_medium)),
                 verticalAlignment = Alignment.Bottom
                 )
@@ -80,6 +84,14 @@ fun HalamanHome(
                 onClick = onNextButtonClicked) {
                 Text(stringResource(R.string.next))
             }
+        }
+    }
+}
+@Preview(showBackground = true)
+@Composable
+fun PreviewHalamanHome(){
+    KelpShakeTheme{
+        HalamanHome (onNextButtonClicked = {})
         }
     }
 }
