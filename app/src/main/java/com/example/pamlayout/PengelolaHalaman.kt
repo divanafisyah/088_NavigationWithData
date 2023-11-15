@@ -1,7 +1,11 @@
+@file:OptIn(ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3Api::class)
 package com.example.pamlayout
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -10,11 +14,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.internal.composableLambda
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.pamlayout.Data.SumberData.flavors
 
 enum class PengelolaHalaman{
@@ -49,44 +58,47 @@ fun KelpShakeAppBar(
 @Composable
 fun KelpShakeApp(
     viewModel: OrderViewModel = viewModel(),
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
 ){
   Scaffold (
       topBar = {
-          KelpShakeAppBar(bisaNavigasiBack = false,
-              navigasiUp = { /*TODO: implement back navigation */
-              }
+          KelpShakeAppBar(
+              bisaNavigasiBack = false,
+              navigasiUp = {}
           )
       }
-  ){
-      innerPadding ->
-      val uiState by viewModel.stateUI.collect(AsState()
+  ) {innerPadding ->
+      val uiState by viewModel.stateUI.collectAsState()
       NavHost (
           navController = navController,
-          startDestination = PengelolaHalaman.Home.name)
+          startDestination = PengelolaHalaman.Home.name,
+          modifier = Modifier.padding(innerPadding)
+      )
       {
-          HalamanHome(onNextButtonClicked = {
-              navController.navigate(PengelolaHalaman.Rasa.name) })
-      }
-          Composable(route = PengelolaHalaman.Rasa.name) {
-              val context = LocalContext.current
-              HalamanSatu(
-                  pilihanRasa = flavors.map { id -> context.resources.getString(id) },
-                  onSelectionChanged = {viewModel.setRasa (it)},
-                  onConfirmButtonClicked = {viewModel.setJumlah(it)},
-                  onNextButtonClicked = {navController.navigate(PengelolaHalaman.Summary.name)},
-                  onCancelButtonClicked = {cancelOrderAndNavigateToHome(viewModel, navController
-                  )
+          composable (route = PengelolaHalaman.Rasa.name){
+              HalamanHome (
+                  onNextButtonClicked = {
+                      navController.navigate(PengelolaHalaman.Rasa.name)
                   })
           }
-          Composable(route = PengelolaHalaman.Summary.name){
-              HalamanDua(orderUIState = uiState,
-                  onCancelButtonClicked = {cancelOrderAndNavigateToRasa(navController)},
-                  )
+          composable(route = PengelolaHalaman.Rasa.name){
+              val context= LocalContext.current
+              HalamanSatu(
+                  pilihanRasa = flavors.map { id-> context.resources.getString(id)},
+                  onSelectionChanged = {viewModel.setRasa(it)},
+                  onConfirmButtonClicked = {viewModel.setJumlah(it)},
+                  onNextButtonClicked = { navController.navigate(PengelolaHalaman.Summary.name) },
+                  onCancelButtonClicked = { cancelOrderAndNavigateToHome(viewModel, navController)})
           }
+          composable(route= PengelolaHalaman.Summary.name) {
+              HalamanDua(
+                  orderUIState = uiState,
+                  onCancelButtonClicked = { cancelOrderAndNavigateToRasa(navController) },
+              )
+          }
+          }
+      }
   }
-}
-}
           private fun cancelOrderAndNavigateToHome(
               viewModel: OrderViewModel,
               navController: NavHostController)
