@@ -29,7 +29,8 @@ import com.example.pamlayout.Data.SumberData.flavors
 enum class PengelolaHalaman{
     Home,
     Rasa,
-    Summary
+    Summary,
+    Form
 }
 @Composable
 fun KelpShakeAppBar(
@@ -78,8 +79,15 @@ fun KelpShakeApp(
           composable (route = PengelolaHalaman.Rasa.name){
               HalamanHome (
                   onNextButtonClicked = {
-                      navController.navigate(PengelolaHalaman.Rasa.name)
+                      navController.navigate(PengelolaHalaman.Form.name)
                   })
+          }
+          composable(route = PengelolaHalaman.Form.name){
+              Form(onSubmitButtonClicked = {
+                  viewModel.setContact(it)
+                  navController.navigate(PengelolaHalaman.Rasa.name)
+              }
+              )
           }
           composable(route = PengelolaHalaman.Rasa.name){
               val context= LocalContext.current
