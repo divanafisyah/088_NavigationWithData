@@ -1,5 +1,6 @@
 package com.example.pamlayout
 
+import android.graphics.Color
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pamlayout.ui.theme.PAMLayoutTheme
@@ -47,6 +49,12 @@ fun Form(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ){
+        Text(
+            text = "Data Customer",
+            color = androidx.compose.ui.graphics.Color.Green,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
+        )
         OutlinedTextField(
             value = namaTxt,
             onValueChange = {namaTxt = it},
