@@ -83,7 +83,9 @@ fun KelpShakeApp(
                   })
           }
           composable(route = PengelolaHalaman.Form.name){
-              Form(onSubmitButtonClicked = {
+              Form(
+                  onCancelButtonClicked = {navController.navigate(PengelolaHalaman.Rasa.name)},
+                  onSubmitButtonClicked = {
                   viewModel.setContact(it)
                   navController.navigate(PengelolaHalaman.Rasa.name)
               }
