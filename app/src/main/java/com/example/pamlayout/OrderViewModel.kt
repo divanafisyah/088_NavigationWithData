@@ -20,6 +20,15 @@ class OrderViewModel : ViewModel(){
                 jumlah = jmlEsPino,
                 harga = hitungHarga(jumlah = jmlEsPino)) }
     }
+    fun setContact(list: MutableList<String>){
+        _stateUI.update {
+                stateSaatIni -> stateSaatIni.copy(
+            name = list[0],
+            almt = list[1],
+            tlp = list[2]
+        )
+        }
+    }
     fun setRasa(rasaPilihan: String) {
         _stateUI.update {stateSaatIni ->
             stateSaatIni.copy(rasa = rasaPilihan)
